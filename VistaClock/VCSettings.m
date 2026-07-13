@@ -81,7 +81,12 @@ static VCSettings* sharedSettings = nil;
         {
             NSData *data = [NSData dataWithContentsOfFile:[VCSettings archivePath]];
             NSError *unarchiveError = nil;
-            sharedSettings = [NSKeyedUnarchiver unarchivedObjectOfClass:[VCSettings class] fromData:data error:&unarchiveError];
+            NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&unarchiveError];
+            if (unarchiver) {
+                unarchiver.requiresSecureCoding = NO;
+                sharedSettings = [unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey];
+                [unarchiver finishDecoding];
+            }
             if (unarchiveError || sharedSettings == nil) {
                 NSLog(@"Failed to unarchive VCSettings: %@", unarchiveError);
             } else {

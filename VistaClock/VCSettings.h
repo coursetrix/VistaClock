@@ -41,7 +41,7 @@
 @property (nonatomic, assign) BOOL useStatusMilitary;
 @property (nonatomic, assign) BOOL showStatusAMPM;
 @property (nonatomic, assign) BOOL showStatusSecondaryTime;
-@property (nonatomic, assign) NSString* statusSecondaryTimezone;
+@property (nonatomic, retain) NSString* statusSecondaryTimezone;
 
 // clock settings
 @property (nonatomic, assign) BOOL useMilitary;
