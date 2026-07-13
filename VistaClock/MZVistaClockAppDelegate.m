@@ -311,8 +311,9 @@
             [title2DateFormat setTimeZone:[NSTimeZone timeZoneWithName:settings.statusSecondaryTimezone]];
             NSString* title2 = [title2DateFormat stringFromDate:now];
             
-            // NSStatusBarButton does not support multiple subtitles, combine titles
-            button.title = [NSString stringWithFormat:@"%@ | %@ | %@", statusItemDate, title1, title2];
+            // draw the secondary time zone as two small stacked lines to the
+            // right of the main title, like the old custom status item view
+            button.attributedTitle = [self statusTitleWithMain:statusItemDate top:title1 bottom:title2];
         }
         else
         {
@@ -423,6 +424,52 @@
             , [selectedDate getDayOfYearString], (long)secondsBetween/86400]];
     }
 } // end of updateTime
+
+
+// Builds the status item title with the secondary time zone rendered as two
+// small stacked lines (day/zone over time), matching the layout the legacy
+// MZStatusItemView drew before the NSStatusBarButton migration.
+-(NSAttributedString*) statusTitleWithMain:(NSString*)mainTitle top:(NSString*)topLine bottom:(NSString*)bottomLine
+{
+    NSFont* mainFont = [NSFont menuBarFontOfSize:0];
+    NSFont* topFont = [NSFont fontWithName:@"Helvetica Neue" size:8];
+    NSFont* bottomFont = [NSFont fontWithName:@"Helvetica Neue" size:10];
+    if (topFont == nil) topFont = [NSFont systemFontOfSize:8];
+    if (bottomFont == nil) bottomFont = [NSFont systemFontOfSize:10];
+    NSDictionary* topAttributes = @{ NSFontAttributeName : topFont,
+        NSForegroundColorAttributeName : [NSColor labelColor] };
+    NSDictionary* bottomAttributes = @{ NSFontAttributeName : bottomFont,
+        NSForegroundColorAttributeName : [NSColor labelColor] };
+
+    NSSize topSize = [topLine sizeWithAttributes:topAttributes];
+    NSSize bottomSize = [bottomLine sizeWithAttributes:bottomAttributes];
+    CGFloat stackWidth = ceil(MAX(topSize.width, bottomSize.width));
+    CGFloat stackHeight = ceil(topSize.height) + 10; // bottom line sits 10pt below the top one
+
+    // the drawing handler runs at draw time, so labelColor resolves against
+    // the menu bar's current light/dark appearance
+    NSImage* stackImage = [NSImage imageWithSize:NSMakeSize(stackWidth, stackHeight)
+        flipped:NO drawingHandler:^BOOL(NSRect dstRect)
+    {
+        [topLine drawAtPoint:NSMakePoint(0, 10) withAttributes:topAttributes];
+        [bottomLine drawAtPoint:NSMakePoint(0, 0) withAttributes:bottomAttributes];
+        return YES;
+    }];
+
+    NSTextAttachment* attachment = [[NSTextAttachment alloc] init];
+    attachment.image = stackImage;
+    // center the stack vertically against the main title's line
+    CGFloat mainLineHeight = mainFont.ascender - mainFont.descender;
+    CGFloat yOffset = mainFont.descender + (mainLineHeight - stackHeight) / 2.0;
+    attachment.bounds = NSMakeRect(0, yOffset, stackWidth, stackHeight);
+
+    NSMutableAttributedString* title = [[NSMutableAttributedString alloc]
+        initWithString:[mainTitle stringByAppendingString:@" "]
+        attributes:@{ NSFontAttributeName : mainFont,
+            NSForegroundColorAttributeName : [NSColor labelColor] }];
+    [title appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+    return title;
+} // end of statusTitleWithMain
 
 
 -(NSString*) getFuzzyTime:(NSDate*) now
