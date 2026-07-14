@@ -41,7 +41,7 @@
                                     <rect key="frame" x="1" y="1" width="610" height="248"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView editable="NO" selectable="NO" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="WZy-1n-vBR">
+                                        <textView editable="NO" selectable="YES" verticallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="WZy-1n-vBR">
                                             <rect key="frame" x="0.0" y="0.0" width="610" height="248"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
