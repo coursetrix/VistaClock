@@ -39,6 +39,19 @@ Rather than loading a time consuming calendar to simply get the date for next Tu
 >    - Untested
 > 
 
+>2.4.1 (build from source — no prebuilt zip yet)
+>
+>    Changes:
+>    - Fixed settings not persisting across launches
+>    - Fixed a startup crash caused by the secondary time zone setting
+>    - Restored the compact panel header (removed the unfinished expandable toolbar)
+>    - Restored the stacked secondary time zone display in the menu bar
+>    - Added EventKit full-access usage descriptions (calendar event / reminder dots)
+>    - Ad-hoc signing so local builds run without a paid Apple account
+>
+>    Tested on Apple Silicon, macOS 26
+>
+
 ## Support
 
 **Bugs and requests?**  Please use the project's [issue tracker].
