@@ -4,6 +4,13 @@
 
 Rather than loading a time consuming calendar to simply get the date for next Tuesday, Vista Clock is just a click away.
 
+## Download
+
+[![Download VistaClock.dmg](https://img.shields.io/badge/Download-VistaClock.dmg-2ea44f?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/coursetrix/VistaClock/releases/latest/download/VistaClock.dmg)
+
+**Apple Silicon · macOS 26.** Open the downloaded DMG and drag VistaClock into Applications — the
+window shows the rest. The first launch needs a quick one-time approval; see [Install](#install) below.
+
 **Features**:
 
 - Quick access to calendar and analog clock with second hand.
