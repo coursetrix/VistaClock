@@ -44,12 +44,6 @@
     ];
 } // end of windowDidLoad
 
--(IBAction) reviewApp:(id)sender
-{
-    NSString* urlString = [NSString stringWithFormat:@"macappstore://itunes.apple.com/app/%@?mt=12", self->macId];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:urlString]];
-} // end of reviewApp
-
 -(IBAction) visitWebsite:(id)sender
 {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.mazookie.com/"]];
@@ -84,10 +78,5 @@
     }
     [self toggleHelp:nil];
 } // end of forceHelp
-
--(void) setMacId:(NSString*) newMacId
-{
-    macId = [NSString stringWithString:newMacId];
-} // end of setMacId
 
 @end

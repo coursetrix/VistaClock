@@ -16,7 +16,6 @@
                 <outlet property="helpScrollView" destination="Nld-gO-vpQ" id="fiR-Rl-ffC"/>
                 <outlet property="helpTextView" destination="WZy-1n-vBR" id="qDs-SW-5Be"/>
                 <outlet property="helpView" destination="P21-T5-Kfz" id="rZL-xk-ggq"/>
-                <outlet property="reviewButton" destination="lt1-0G-j79" id="MZT-B1-sII"/>
                 <outlet property="visitWebsiteButton" destination="guR-B2-lis" id="vc9-WD-vUu"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
@@ -137,7 +136,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="guR-B2-lis">
-                                    <rect key="frame" x="144" y="9" width="130" height="32"/>
+                                    <rect key="frame" x="14" y="9" width="130" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <buttonCell key="cell" type="push" title="Contact Support" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nB7-jF-Cqa">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -156,17 +155,6 @@
                                     </buttonCell>
                                     <connections>
                                         <action selector="toggleHelp:" target="-2" id="Uwn-cJ-rrK"/>
-                                    </connections>
-                                </button>
-                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lt1-0G-j79">
-                                    <rect key="frame" x="14" y="9" width="130" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="push" title="Review in MAS" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="J9U-Wv-dHQ">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="reviewApp:" target="-2" id="PW8-xV-CMh"/>
                                     </connections>
                                 </button>
                             </subviews>

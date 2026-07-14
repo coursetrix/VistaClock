@@ -595,7 +595,6 @@
     //[NSApp arrangeInFront:self];
     if (abox == nil) {
         abox = [[MZAboutBox alloc] initWithWindowNibName:@"MZAboutBox"];
-        [abox setMacId:@"id466690161"];
     }
     [abox.window makeKeyAndOrderFront:nil];
     [NSApp activateIgnoringOtherApps:YES];
@@ -608,7 +607,6 @@
 {
     if (abox == nil) {
         abox = [[MZAboutBox alloc] initWithWindowNibName:@"MZAboutBox"];
-        [abox setMacId:@"id466690161"];
     }
     [abox.window makeKeyAndOrderFront:nil];
     [NSApp activateIgnoringOtherApps:YES];

@@ -15,7 +15,6 @@
     IBOutlet NSTextField* appVersion;
     IBOutlet NSTextField* appCopyright;
 
-    IBOutlet NSButton* reviewButton;
     IBOutlet NSButton* visitWebsiteButton;
     IBOutlet NSButton* helpButton;
 
@@ -28,13 +27,10 @@
     IBOutlet NSScrollView* helpScrollView;
 
     bool isHelpVisible;
-    NSString* macId;
 }
 
--(IBAction) reviewApp:(id)sender;
 -(IBAction) visitWebsite:(id)sender;
 -(IBAction) toggleHelp:(id)sender;
 -(void) forceHelp:(bool)force;
--(void) setMacId:(NSString*) newMacId;
 
 @end
