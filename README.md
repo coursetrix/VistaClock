@@ -48,9 +48,29 @@ Rather than loading a time consuming calendar to simply get the date for next Tu
 >    - Restored the stacked secondary time zone display in the menu bar
 >    - Added EventKit full-access usage descriptions (calendar event / reminder dots)
 >    - Ad-hoc signing so local builds run without a paid Apple account
+>    - Removed the dead Mac App Store review link and updated the in-app help
 >
 >    Tested on Apple Silicon, macOS 26
 >
+
+## Fork
+
+A fork of the original VistaClock, updated to run as a native Apple Silicon (arm64) build on
+current macOS. Maintained by Martin Versluis.
+
+Changes in this fork:
+
+- Native arm64 build for current macOS (no Intel / Rosetta).
+- Fixed settings not persisting across launches (world clocks, clock faces, menu-bar format)
+  and a related startup crash.
+- Restored the original compact panel header; removed the half-finished expandable toolbar.
+- Restored the stacked secondary time zone display in the menu bar.
+- Added EventKit full-access usage descriptions so calendar event / reminder dots work on
+  macOS 14+.
+- Ad-hoc code signing so it builds and runs locally without a paid Apple Developer account.
+- Removed the dead Mac App Store review link and updated the in-app help.
+
+Original app © Mazookie, LLC, released under the MIT License; this fork preserves that license.
 
 ## Support
 
