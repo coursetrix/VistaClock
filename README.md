@@ -24,16 +24,34 @@ Rather than loading a time consuming calendar to simply get the date for next Tu
 
 ## Install
 
+### Quick install (Terminal — easiest, no security warning)
+
+Paste this into **Terminal**. It downloads the latest VistaClock, installs it into Applications,
+and opens it — with **no Gatekeeper warning**, because a command-line download isn't quarantined
+the way a browser download is:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/coursetrix/VistaClock/main/scripts/install.sh | bash
+```
+
+Prefer to read the script before running it? (A good habit with any `curl | bash`.)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/coursetrix/VistaClock/main/scripts/install.sh -o install.sh
+less install.sh   # inspect it, then:
+bash install.sh
+```
+
+### Manual install (DMG)
+
 1. Download **VistaClock.dmg** (see [Versions](#versions) below).
 2. Open the DMG and drag **VistaClock** onto the **Applications** shortcut.
 3. Eject the DMG and launch VistaClock from Applications.
 
-### First launch: getting past the Apple security warning
-
-VistaClock is signed to run locally but is **not notarized** — notarization needs a paid Apple
-Developer account, which this fork intentionally does without. So the first time you open it,
-macOS blocks it with a message like *"Apple could not verify VistaClock is free of malware."*
-This is expected. You only need to clear it **once**, either way below.
+Because a browser download **is** quarantined, opening it this way trips Gatekeeper the first
+time. VistaClock is signed to run locally but **not notarized** (notarization needs a paid Apple
+Developer account, which this fork does without), so macOS shows *"Apple could not verify
+VistaClock is free of malware."* You only need to clear it **once**, either way below.
 
 **Option A — System Settings (no Terminal):**
 
