@@ -31,7 +31,6 @@
     LOG_OUTLET_WARNING(titleLabel);
     LOG_OUTLET_WARNING(gotoDateField);
     LOG_OUTLET_WARNING(dayDetailLabel);
-    LOG_OUTLET_WARNING(toolBarMenuItem);
     LOG_OUTLET_WARNING(autoHideMenuItem);
     LOG_OUTLET_WARNING(_timeNow);
     
@@ -68,16 +67,9 @@
     // only for 10.10 and beyond
     _vistaClockWindow.titleVisibility = NSWindowTitleHidden;
 
-    // setup toolbar
+    // setup the compact header toolbar (date label + settings gear)
     showToolbar = FALSE;
-    if (showToolbar)
-    {
-        [self configureToolbar: TRUE];
-    }
-    else
-    {
-        [self configureToolbar: FALSE];
-    }
+    [self configureToolbar];
 
     // set the date box place holder to locale date
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -331,44 +323,31 @@
         // set menu item
         [_timeNow setTitle:fullDateTime];
     
-        // set window items
-        // check size of window to see if title will fit
-        if (clockCollectionArray.count<1)
+        // Set the header date as the window's native title. The unified
+        // toolbar renders it leading-aligned with a proper inset, so it does
+        // not clip the way a custom toolbar text field did.
+        NSString* headerDate;
+        if (clockCollectionArray.count < 1)
         {
-            if (showToolbar == TRUE)
-            {
-                [_vistaClockWindow setTitle:normalFullTime];
-            }
-            else
-            {
-                [_vistaClockWindow setTitle:@""];
-            }
-            [titleLabel setStringValue:normalFullTime];
+            headerDate = normalFullTime;
         }
         else
         {
-            if (showToolbar == TRUE)
-            {
-                [_vistaClockWindow setTitle:fullDate];
-            }
-            else
-            {
-                [_vistaClockWindow setTitle:@""];
-            }
             int windowSize = _vistaClockWindow.frame.size.width;
             if (windowSize > 288)
             {
-                [titleLabel setStringValue:fullDate];
+                headerDate = fullDate;
             }
             else if (windowSize > 150)
             {
-                [titleLabel setStringValue:mediumDate];
+                headerDate = mediumDate;
             }
             else
             {
-                [titleLabel setStringValue:shortDate];
+                headerDate = shortDate;
             }
         }
+        [_vistaClockWindow setTitle:headerDate];
 
         // update clocks
         MZClockItem* item;
@@ -389,19 +368,12 @@
                 [mainCalendar setHidden:false];
                 [altcal setHidden:true];
                 [mainCalendar setDate:[mainCalendar getDate]];
-                [toolBarMenuItem setEnabled:YES];
             }
             else
             {
                 [altcal setHidden:false];
                 [mainCalendar setHidden:true];
                 [altcal setDateValue:now];
-                // toolbar is only enabled if gregorian calendar is showing
-                if (showToolbar == TRUE)
-                {
-                    [self toggleToolbar:self];
-                }
-                [toolBarMenuItem setEnabled:NO];
             }
         }
 
@@ -758,17 +730,14 @@
         [mainCalendar setFontSize:[NSFont systemFontSize]];
     }
 
-    // toolbar is only enabled if calendar is showing
     if (settings.showCalendar == YES || [settings.clockConfigs count] < 1)
     {
         [self resizeWindow];
-        [toolBarMenuItem setEnabled:YES];
     }
     else
     {
-        showToolbar = TRUE;
-        [self toggleToolbar:self];
-        [toolBarMenuItem setEnabled:NO];
+        // clocks only, no calendar to navigate: keep the compact header
+        showToolbar = FALSE;
     }
 
     // add clocks from config last
@@ -806,24 +775,9 @@
 
     int windowWidth = 0;
 
-    // is toolbar showing?
-    if (showToolbar)
-    {
-        //frame.size.height = WINDOW_HEIGHT_TOOLBAR;
-        [_vistaClockWindow setTitleVisibility:NSWindowTitleVisible];
-    }
-    else
-    {
-        // adjust for wierd shift
-        if (toolBarChanged)
-        {
-            toolBarChanged = FALSE;
-            //frame.origin.y -= 2;
-        }
-
-        //frame.size.height = WINDOW_HEIGHT;
-        [_vistaClockWindow setTitleVisibility:NSWindowTitleHidden];
-    }
+    // The header date is shown as the window's native title in the unified
+    // toolbar, so keep the title visible.
+    [_vistaClockWindow setTitleVisibility:NSWindowTitleVisible];
 
     // clocks only
     if (!settings.showCalendar && [settings.clockConfigs count] > 0)
@@ -859,6 +813,14 @@
 
     windowWidth += clockWidth;
     frame.size.width = windowWidth;
+
+    // Enforce a compact height: the calendar/clocks are 8pt off the bottom and
+    // CALENDAR_HEIGTH tall, so size the content to leave a small top margin.
+    // (resizeWindow otherwise preserves a stale, too-tall window height.)
+    CGFloat chrome = NSHeight(frame) - NSHeight([_vistaClockWindow.contentView frame]);
+    CGFloat newHeight = CALENDAR_HEIGTH + 8 + 6 + chrome; // 8pt bottom + 6pt top
+    frame.origin.y += NSHeight(frame) - newHeight;        // keep the top edge fixed
+    frame.size.height = newHeight;
 
     [_vistaClockWindow setFrame:frame display:YES animate:YES];
 
@@ -1011,61 +973,16 @@
 
 
 
--(void) configureToolbar:(bool) full
+// Builds the panel's compact header: the date shows as the window's native
+// title on the left (see updateTime), a flexible space, and the settings gear
+// on the right. The old expandable toolbar mode (goto-date field / today
+// button / day-details) was removed.
+-(void) configureToolbar
 {
-    // reset toolbar;
+    // reset toolbar; (installs the flexible space + settings gear)
     [self resetToolbar];
 
-    if (full)
-    {
-        // Insert DateBoxID
-        [_vistaClockWindow.toolbar insertItemWithItemIdentifier:@"DateBoxID" atIndex:0];
-        NSToolbarItem *dateBoxItem = [_vistaClockWindow.toolbar items][0];
-        if (dateBoxItem.view) {
-            // Modern: Let system measure toolbar item view using constraints.
-            dateBoxItem.view.translatesAutoresizingMaskIntoConstraints = NO;
-            // Add constraints to let the toolbar size the item properly
-            [dateBoxItem.view.widthAnchor constraintEqualToConstant:120].active = YES;
-            [dateBoxItem.view.heightAnchor constraintEqualToConstant:24].active = YES;
-        }
-
-        // Insert GotoTodayID
-        [_vistaClockWindow.toolbar insertItemWithItemIdentifier:@"GotoTodayID" atIndex:1];
-        NSToolbarItem *gotoTodayItem = [_vistaClockWindow.toolbar items][1];
-        if (gotoTodayItem.view) {
-            // Modern: Let system measure toolbar item view using constraints.
-            gotoTodayItem.view.translatesAutoresizingMaskIntoConstraints = NO;
-            // Add constraints as appropriate; example fixed size:
-            [gotoTodayItem.view.widthAnchor constraintEqualToConstant:80].active = YES;
-            [gotoTodayItem.view.heightAnchor constraintEqualToConstant:24].active = YES;
-        }
-
-        // Insert DateDetailsID
-        [_vistaClockWindow.toolbar insertItemWithItemIdentifier:@"DateDetailsID" atIndex:2];
-        NSToolbarItem *dateDetailsItem = [_vistaClockWindow.toolbar items][2];
-        if (dateDetailsItem.view) {
-            // Modern: Let system measure toolbar item view using constraints.
-            dateDetailsItem.view.translatesAutoresizingMaskIntoConstraints = NO;
-            // Add constraints as appropriate; example fixed size:
-            [dateDetailsItem.view.widthAnchor constraintEqualToConstant:100].active = YES;
-            [dateDetailsItem.view.heightAnchor constraintEqualToConstant:24].active = YES;
-        }
-
-        [_vistaClockWindow makeFirstResponder:gotoDateField];
-    }
-    else
-    {
-        [_vistaClockWindow.toolbar insertItemWithItemIdentifier:@"TitleID" atIndex:0];
-        NSToolbarItem *titleItem = [_vistaClockWindow.toolbar items][0];
-        if (titleItem.view) {
-            // Modern: Let system measure toolbar item view using constraints.
-            titleItem.view.translatesAutoresizingMaskIntoConstraints = NO;
-            // Add constraints as appropriate; example fixed size:
-            [titleItem.view.widthAnchor constraintEqualToConstant:200].active = YES;
-            [titleItem.view.heightAnchor constraintEqualToConstant:24].active = YES;
-        }
-        [_vistaClockWindow makeFirstResponder:clockCollectionView];
-    }
+    [_vistaClockWindow makeFirstResponder:clockCollectionView];
 
     // redraw
     [self resizeWindow];
@@ -1081,8 +998,14 @@
     [_vistaClockWindow.toolbar insertItemWithItemIdentifier:NSToolbarFlexibleSpaceItemIdentifier atIndex:0];
     [_vistaClockWindow.toolbar insertItemWithItemIdentifier:@"SettingsID" atIndex:1];
 
-    // Note: No longer setting minSize or maxSize on toolbar items.
-    // Modern Auto Layout and intrinsicContentSize will determine toolbar item sizes.
+    // Size the gear pull-down via constraints (replaces the deprecated
+    // NSToolbarItem minSize/maxSize) so its image stays visible.
+    NSToolbarItem *gearItem = [_vistaClockWindow.toolbar items][1];
+    if (gearItem.view) {
+        gearItem.view.translatesAutoresizingMaskIntoConstraints = NO;
+        [gearItem.view.widthAnchor constraintEqualToConstant:40].active = YES;
+        [gearItem.view.heightAnchor constraintEqualToConstant:24].active = YES;
+    }
 } // resetToolbar
 
 
@@ -1106,22 +1029,6 @@
     }
     [prefsWindow updateWindowControls];
 } // setAutoHideMenutItem
-
-
--(IBAction) toggleToolbar:(id)sender
-{
-    showToolbar = !showToolbar;
-    toolBarChanged = TRUE;
-    if (showToolbar)
-    {
-        [toolBarMenuItem setTitle:@"Hide Toolbar"];
-    }
-    else
-    {
-        [toolBarMenuItem setTitle:@"Show Toolbar"];
-    }
-    [self configureToolbar: showToolbar];
-} // toggleToolbar
 
 
 -(IBAction) gotoDate:(id)sender

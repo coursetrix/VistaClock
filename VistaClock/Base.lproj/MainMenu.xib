@@ -25,18 +25,17 @@
                 <outlet property="statusMenu" destination="XSr-wM-FQN" id="Ijs-x2-yPY"/>
                 <outlet property="timeNow" destination="umV-W3-GU5" id="gg3-AF-MbB"/>
                 <outlet property="titleLabel" destination="sb8-kn-hmr" id="WY1-4F-Dc0"/>
-                <outlet property="toolBarMenuItem" destination="mmw-vF-IrW" id="PiN-lZ-oek"/>
                 <outlet property="vistaClockWindow" destination="QvC-M9-y7g" id="gGz-wa-Rv1"/>
             </connections>
         </customObject>
-        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" visibleAtLaunch="NO" animationBehavior="default" toolbarStyle="expanded" titleVisibility="hidden" id="QvC-M9-y7g">
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" deferred="NO" visibleAtLaunch="NO" animationBehavior="default" toolbarStyle="unified" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowCollectionBehavior key="collectionBehavior" canJoinAllSpaces="YES"/>
             <windowPositionMask key="initialPositionMask" rightStrut="YES" topStrut="YES"/>
-            <rect key="contentRect" x="1600" y="1080" width="452" height="230"/>
+            <rect key="contentRect" x="1600" y="1080" width="452" height="224"/>
             <rect key="screenRect" x="0.0" y="0.0" width="3360" height="1387"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="452" height="230"/>
+                <rect key="frame" x="0.0" y="0.0" width="452" height="224"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="voP-wI-1NQ">
@@ -89,8 +88,6 @@
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="D9CEF547-D236-4172-9046-3C2309052A57" explicitItemIdentifier="TitleID" label="Title" paletteLabel="Title" tag="1" autovalidates="NO" id="P7Z-lk-nDU">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="104" height="18"/>
-                        <size key="maxSize" width="300" height="20"/>
                         <textField key="view" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" tag="1" textCompletion="NO" id="sb8-kn-hmr">
                             <rect key="frame" x="0.0" y="14" width="104" height="18"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -103,8 +100,6 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="A2A8BD18-00AA-4181-A180-A86E4E8EE92D" explicitItemIdentifier="DateBoxID" label="DateBox" paletteLabel="DateBox" selectable="YES" id="m9W-ps-O7f">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="100" height="24"/>
-                        <size key="maxSize" width="110" height="24"/>
                         <textField key="view" focusRingType="none" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" id="FDH-Dv-cZw" customClass="MZTextField">
                             <rect key="frame" x="0.0" y="14" width="100" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -123,8 +118,6 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="2C8D7B8B-B413-425C-A421-F9FB3679D28F" explicitItemIdentifier="GotoTodayID" label="" paletteLabel="GotoToday" image="bw_today" id="6FB-z6-WbR">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="16" height="22"/>
-                        <size key="maxSize" width="50" height="24"/>
                         <button key="view" verticalHuggingPriority="750" id="jc1-8J-1wb">
                             <rect key="frame" x="21" y="14" width="22" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -139,8 +132,6 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="4DE49B54-66A2-4CCF-B7E9-25E912A035DD" explicitItemIdentifier="DateDetailsID" label="DateDetails" paletteLabel="DateDetails" id="aG2-xa-REO">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="90" height="12"/>
-                        <size key="maxSize" width="180" height="25"/>
                         <textField key="view" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" id="QAW-Qv-GMR">
                             <rect key="frame" x="0.0" y="14" width="114" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -154,8 +145,6 @@
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="CSC-Ei-UEM"/>
                     <toolbarItem implicitItemIdentifier="AD20F106-826A-4BC3-97B5-04CB93F950F1" explicitItemIdentifier="SettingsID" label="Settings" paletteLabel="Settings" image="mazookie_gear" autovalidates="NO" id="ZjE-v3-8gJ">
                         <nil key="toolTip"/>
-                        <size key="minSize" width="34" height="16"/>
-                        <size key="maxSize" width="40" height="25"/>
                         <popUpButton key="view" springLoaded="YES" id="94k-L0-ZD8">
                             <rect key="frame" x="9" y="14" width="34" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -165,11 +154,6 @@
                                 <menu key="menu" title="OtherViews" autoenablesItems="NO" id="r1Z-vr-xjR">
                                     <items>
                                         <menuItem state="on" image="mazookie_gear" hidden="YES" enabled="NO" id="tmt-GY-gXh"/>
-                                        <menuItem title="Show Toolbar" enabled="NO" keyEquivalent="t" id="mmw-vF-IrW">
-                                            <connections>
-                                                <action selector="toggleToolbar:" target="Voe-Tx-rLC" id="qcd-KL-b7j"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Pin to Desktop" keyEquivalent="p" id="CWE-C3-Ay5">
                                             <connections>
                                                 <action selector="toggleAutoHide:" target="Voe-Tx-rLC" id="c73-c4-cZA"/>
@@ -215,16 +199,12 @@
                     </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="m9W-ps-O7f"/>
-                    <toolbarItem reference="6FB-z6-WbR"/>
-                    <toolbarItem reference="aG2-xa-REO"/>
                     <toolbarItem reference="CSC-Ei-UEM"/>
                     <toolbarItem reference="ZjE-v3-8gJ"/>
                 </defaultToolbarItems>
             </toolbar>
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="Tzp-WP-9Xo"/>
-                <outlet property="initialFirstResponder" destination="FDH-Dv-cZw" id="TpK-jj-V8q"/>
             </connections>
             <point key="canvasLocation" x="-27" y="6"/>
         </window>

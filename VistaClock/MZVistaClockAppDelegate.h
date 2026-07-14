@@ -67,7 +67,6 @@
     IBOutlet NSTextField* titleLabel;
     IBOutlet MZTextField* gotoDateField;
     IBOutlet NSTextField* dayDetailLabel;
-    IBOutlet NSMenuItem* toolBarMenuItem;
     IBOutlet NSMenuItem* autoHideMenuItem;
 
     // MISC
@@ -107,9 +106,8 @@
 -(void) setAutoHideMenutItem;
 
 
--(void) configureToolbar:(bool) full;
+-(void) configureToolbar;
 -(void) resetToolbar;
--(IBAction) toggleToolbar:(id)sender;
 
 
 -(IBAction) gotoDate:(id)sender;
