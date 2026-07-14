@@ -89,7 +89,7 @@ normal macOS privacy prompt, not the Gatekeeper warning above.
 ## Fork
 
 A fork of the original VistaClock, updated to run as a native Apple Silicon (arm64) build on
-current macOS. Maintained by Martin Versluis.
+current macOS. Maintained by [Martin Versluis](https://github.com/coursetrix).
 
 Changes in this fork:
 
