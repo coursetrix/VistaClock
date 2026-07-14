@@ -63,8 +63,12 @@ TMP_DMG="$WORK/rw.dmg"
 FINAL_DMG="$PROJECT_DIR/build/$APP_NAME-$VERSION.dmg"
 
 echo "==> Creating writable image..."
+hdiutil detach "/Volumes/$VOL" -force >/dev/null 2>&1 || true   # clear any stale mount of the same name
 hdiutil create -size 80m -fs HFS+ -volname "$VOL" -ov "$TMP_DMG" >/dev/null
 MOUNT="$(hdiutil attach "$TMP_DMG" -nobrowse -noautoopen -noverify | grep -o '/Volumes/.*' | head -1)"
+# Use the volume's ACTUAL name (macOS suffixes it if a dupe is mounted), so the
+# AppleScript below targets the disk we just created, not some leftover.
+VOLNAME="$(basename "$MOUNT")"
 
 cp -R "$APP_PATH" "$MOUNT/"
 ln -s /Applications "$MOUNT/Applications"
@@ -74,12 +78,12 @@ cp "$WORK/background.tiff" "$MOUNT/.background/background.tiff"
 RIGHT=$((200 + WIN_W))
 BOTTOM=$((120 + WIN_H + TITLEBAR))
 
-echo "==> Styling the Finder window..."
+echo "==> Styling the Finder window (volume: $VOLNAME)..."
 osascript <<OSA
 tell application "Finder"
-  tell disk "$VOL"
+  tell disk "$VOLNAME"
     open
-    delay 1
+    delay 2
     set current view of container window to icon view
     set toolbar visible of container window to false
     set statusbar visible of container window to false
@@ -91,17 +95,18 @@ tell application "Finder"
     set background picture of opts to file ".background:background.tiff"
     set position of item "$APP_NAME.app" of container window to {$APP_X, $APP_Y}
     set position of item "Applications" of container window to {$APPS_X, $APPS_Y}
-    close
-    open
-    delay 1
     update without registering applications
-    delay 2
+    delay 4
+    close
   end tell
 end tell
 OSA
 
-sync
-hdiutil detach "$MOUNT" -quiet
+sync; sync
+sleep 2
+for _ in 1 2 3 4 5; do
+    hdiutil detach "$MOUNT" -quiet && break || sleep 2
+done
 MOUNT=""
 
 echo "==> Converting to compressed image..."

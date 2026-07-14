@@ -87,16 +87,24 @@ let panelPath = NSBezierPath(roundedRect: panel, xRadius: 12, yRadius: 12)
 NSColor(white: 1.0, alpha: 0.7).setFill(); panelPath.fill()
 NSColor(white: 0.82, alpha: 1).setStroke(); panelPath.lineWidth = 1; panelPath.stroke()
 
-text("First launch — one time only", R(64, 358, W - 128, 20), 13, .semibold,
+text("First launch — one time only", R(64, 356, W - 128, 20), 13, .semibold,
      NSColor(white: 0.18, alpha: 1), .left)
-let steps = """
-This app isn't notarized, so macOS blocks the first open.
-1.   Double-click VistaClock, then click Done.
-2.   Open System Settings ▸ Privacy & Security, scroll down, click “Open Anyway”.
-3.   Open VistaClock again — it won't ask again.
-"""
-text(steps, R(64, 382, W - 128, 104), 12.5, .regular, NSColor(white: 0.3, alpha: 1),
-     .left, lineSpacing: 4)
+text("macOS blocks apps it can't verify. This is expected — nothing is wrong.",
+     R(64, 378, W - 128, 18), 12, .regular, NSColor(white: 0.35, alpha: 1), .left)
+
+// Highlighted warning: click Done, never Move to Trash.
+let warn = R(64, 400, W - 128, 30)
+let warnBg = NSBezierPath(roundedRect: warn, xRadius: 7, yRadius: 7)
+NSColor(calibratedRed: 1.0, green: 0.95, blue: 0.80, alpha: 1).setFill(); warnBg.fill()
+NSColor(calibratedRed: 0.85, green: 0.55, blue: 0.0, alpha: 0.55).setStroke()
+warnBg.lineWidth = 1; warnBg.stroke()
+text("When you see “VistaClock Not Opened”, click  Done  —  do NOT click “Move to Trash”.",
+     R(78, 407, W - 156, 18), 12.5, .semibold,
+     NSColor(calibratedRed: 0.70, green: 0.38, blue: 0.0, alpha: 1), .left)
+
+text("Then open System Settings ▸ Privacy & Security, scroll down, and click “Open Anyway”. "
+     + "Open VistaClock once more and it won't ask again.",
+     R(64, 440, W - 128, 40), 12, .regular, NSColor(white: 0.32, alpha: 1), .left, lineSpacing: 3)
 
 NSGraphicsContext.restoreGraphicsState()
 
