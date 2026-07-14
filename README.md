@@ -24,7 +24,21 @@ Rather than loading a time consuming calendar to simply get the date for next Tu
 
 ## Install
 
-### Quick install (Terminal — easiest, no security warning)
+Three ways, easiest first — all of them end with VistaClock in your Applications folder.
+
+### Installer bundle (ZIP) — download, unzip, run
+
+1. Download **VistaClock.zip** from the [latest release](https://github.com/coursetrix/VistaClock/releases/latest) and double-click it to unzip.
+2. Open the new **VistaClock** folder — it holds the app and an **install.command**.
+3. Open **Terminal** (press ⌘-Space, type *Terminal*, press Return).
+4. Type `bash ` (note the trailing space), then **drag `install.command` into the Terminal window** and press Return.
+5. VistaClock installs into Applications and opens — **no security warning**.
+
+The installer clears Apple's download-quarantine for you, so the "Move to Trash" prompt never
+appears. (Don't just double-click `install.command` — that makes macOS prompt on the script
+itself. Use the Terminal step above.)
+
+### One-line Terminal install — quickest
 
 Paste this into **Terminal**. It downloads the latest VistaClock, installs it into Applications,
 and opens it — with **no Gatekeeper warning**, because a command-line download isn't quarantined

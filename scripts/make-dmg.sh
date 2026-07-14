@@ -1,11 +1,11 @@
 #!/bin/bash
 #
-# make-dmg.sh — build a distributable VistaClock.dmg
+# make-dmg.sh - build a distributable VistaClock.dmg
 #
 # Produces a compressed disk image containing VistaClock.app plus a drag-to-
 # /Applications shortcut. Uses only built-in tools (xcodebuild, hdiutil).
 #
-# The app is ad-hoc signed ("Sign to Run Locally"), NOT notarized — notarization
+# The app is ad-hoc signed ("Sign to Run Locally"), NOT notarized - notarization
 # needs a paid Apple Developer account and is out of scope for this fork. On
 # another Mac the first launch will hit Gatekeeper; see the Install section of
 # README.md for how recipients allow it.
@@ -21,7 +21,7 @@ CONFIG=Release
 APP_NAME=VistaClock
 DERIVED="$PROJECT_DIR/build/dmg-derived"
 
-echo "==> Building $APP_NAME ($CONFIG)…"
+echo "==> Building $APP_NAME ($CONFIG)..."
 xcodebuild -project "$APP_NAME.xcodeproj" -scheme "$APP_NAME" \
     -configuration "$CONFIG" -derivedDataPath "$DERIVED" build
 
@@ -45,7 +45,7 @@ ln -s /Applications "$STAGING/Applications"
 DMG_PATH="$PROJECT_DIR/build/$APP_NAME-$VERSION.dmg"
 rm -f "$DMG_PATH"
 
-echo "==> Creating disk image…"
+echo "==> Creating disk image..."
 hdiutil create \
     -volname "$APP_NAME $VERSION" \
     -srcfolder "$STAGING" \
