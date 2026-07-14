@@ -22,6 +22,39 @@ Rather than loading a time consuming calendar to simply get the date for next Tu
 ## Screenshots
 ![](Screenshot1.png)
 
+## Install
+
+1. Download **VistaClock.dmg** (see [Versions](#versions) below).
+2. Open the DMG and drag **VistaClock** onto the **Applications** shortcut.
+3. Eject the DMG and launch VistaClock from Applications.
+
+### First launch: getting past the Apple security warning
+
+VistaClock is signed to run locally but is **not notarized** — notarization needs a paid Apple
+Developer account, which this fork intentionally does without. So the first time you open it,
+macOS blocks it with a message like *"Apple could not verify VistaClock is free of malware."*
+This is expected. You only need to clear it **once**, either way below.
+
+**Option A — System Settings (no Terminal):**
+
+1. Double-click **VistaClock**. On the warning, click **Done** — *not* "Move to Trash".
+2. Open **System Settings → Privacy & Security**.
+3. Scroll to the **Security** section. You'll see *"VistaClock was blocked to protect your Mac."*
+4. Click **Open Anyway** and confirm with Touch ID or your password.
+5. VistaClock opens, and it won't warn you again.
+
+**Option B — Terminal (one command):**
+
+Remove the download-quarantine flag, then open the app normally:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/VistaClock.app
+```
+
+After the first successful launch, VistaClock behaves like any other app. It will separately
+ask for Calendar and Reminders access the first time it shows event/reminder dots — that's the
+normal macOS privacy prompt, not the Gatekeeper warning above.
+
 ## Versions
 >[2.3.4](builds/VistaClock_v2.3.4/VistaClock.zip)
 >
@@ -39,7 +72,7 @@ Rather than loading a time consuming calendar to simply get the date for next Tu
 >    - Untested
 > 
 
->2.4.1 (build from source — no prebuilt zip yet)
+>[2.4.1](https://github.com/coursetrix/VistaClock/releases/tag/v2.4.1) — download **VistaClock.dmg** from the release
 >
 >    Changes:
 >    - Fixed settings not persisting across launches
